@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Aldy",
+      "email": "aldyyy@gmail.com",
+      "bidang": "JS Fullstack"
+    },
+    {
+      "name": "Aldycky ",
+      "email": "aldy@gmail.com",
+      "bidang": "React Native Dev",
+      "id": 2
+    },
+    {
+      "name": "test",
+      "email": "123",
+      "bidang": "456",
+      "id": 3
+    },
+    {
+      "name": "Dd",
+      "email": "",
+      "bidang": "",
+      "id": 4
+    },
+    {
+      "name": "nbjhjb",
+      "email": "",
+      "bidang": "",
+      "id": 5
+    },
+    {
+      "name": "scdscds",
+      "email": "",
+      "bidang": "",
+      "id": 6
+    }
+  ]
+}
