@@ -7,26 +7,29 @@ import {
   TextInput,
   Button,
   Image,
-  Touchable,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 
-const Item = ({name, email, bidang, onPress}) => {
+const Item = ({name, email, bidang, onPress, onDelete}) => {
   return (
     <View style={styles.itemContainer}>
-      <Touchable onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         <Image
           source={{
             uri: `https://ui-avatars.com/api/?name=${name}`,
           }}
           style={styles.avatar}
         />
-      </Touchable>
+      </TouchableOpacity>
       <View style={styles.desc}>
         <Text style={styles.descName}>{name}</Text>
         <Text style={styles.descEmail}>{email}</Text>
         <Text style={styles.descBidang}>{bidang}</Text>
       </View>
-      <Text style={styles.delete}>X</Text>
+      <TouchableOpacity onPress={onDelete}>
+        <Text style={styles.delete}>X</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -37,6 +40,7 @@ const LocalAPI = () => {
   const [bidang, setBidang] = useState('');
   const [users, setUsers] = useState([]);
   const [button, setButton] = useState('Simpan');
+  const [selectedUser, setSelectedUser] = useState({});
 
   useEffect(() => {
     getData();
@@ -56,10 +60,17 @@ const LocalAPI = () => {
         setBidang('');
         getData();
       });
-    } else if (button === 'update') {
-      axios.put('http://10.0.2.2:3004/users', data).then(res => {
-        console.log('res update: ', res);
-      });
+    } else if (button === 'Update') {
+      axios
+        .put(`http://10.0.2.2:3004/users/${selectedUser.id}`, data)
+        .then(res => {
+          console.log('res update: ', res);
+          getData();
+          setName('');
+          setEmail('');
+          setBidang('');
+          setButton('Simpan');
+        });
     }
   };
 
@@ -74,11 +85,20 @@ const LocalAPI = () => {
   };
 
   const selectItem = item => {
-    console.log('selected item', item);
+    console.log('selected item: ', item);
+    setSelectedUser(item);
     setName(item.name);
     setEmail(item.email);
     setBidang(item.bidang);
     setButton('Update');
+  };
+
+  const deleteItem = item => {
+    console.log(item);
+    axios.delete(`http://10.0.2.2:3004/users/${item.id}`).then(res => {
+      console.log('res delete: ', res);
+      getData();
+    });
   };
 
   return (
@@ -113,6 +133,16 @@ const LocalAPI = () => {
             email={user.email}
             bidang={user.bidang}
             onPress={() => selectItem(user)}
+            onDelete={() =>
+              Alert.alert(
+                'Peringatan',
+                'Anda yakin ingin menghapus user ini?',
+                [
+                  {text: 'Tidak', onPress: () => console.log('button tidak')},
+                  {text: 'Ya', onPress: () => deleteItem(user)},
+                ],
+              )
+            }
           />
         );
       })}
