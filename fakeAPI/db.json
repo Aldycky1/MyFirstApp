@@ -1,3 +1,16 @@
 {
-  "users": []
+  "users": [
+    {
+      "name": "Aldycky Bagus",
+      "email": "aldy@gmail.com",
+      "bidang": "RN dev",
+      "id": 1
+    },
+    {
+      "name": "Inatsa Aulia",
+      "email": "aulia@gmail.com",
+      "bidang": "UI Designer",
+      "id": 2
+    }
+  ]
 }
