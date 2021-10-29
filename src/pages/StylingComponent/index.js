@@ -5,7 +5,7 @@ import macbook from '../../assets/images/macbook.jpg';
 const StylingComponent = () => {
   return (
     <View style={{alignItems: 'center'}}>
-      <Text style={styles.text}>Styling Component React Native</Text>
+      <Text style={styles.text}>Styling Component React Native Update</Text>
       <View
         style={{
           width: 100,
